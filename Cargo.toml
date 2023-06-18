@@ -3,9 +3,9 @@ name = "tonic-autometrics"
 version = "0.1.0"
 edition = "2021"
 
-[[bin]] # Bin to run the HelloWorld gRPC server
-name = "helloworld-server"
-path = "src/server.rs"
+#[[bin]] # Bin to run the HelloWorld gRPC server
+#name = "helloworld-server"
+#path = "src/server.rs"
 
 #[[bin]] # Bin to run the HelloWorld gRPC client
 #name = "helloworld-client"
@@ -16,6 +16,7 @@ tonic = "0.9"
 prost = "0.11"
 tokio = { version = "1.0", features = ["macros", "rt-multi-thread"] }
 autometrics = { version = "0.5.0", features = ["prometheus-exporter"] }
+axum = "0.6.18"
 
 [build-dependencies]
 tonic-build = "0.9"

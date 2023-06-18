@@ -1,6 +1,11 @@
+use axum::http::StatusCode;
+use axum::routing::get;
+use axum::Router;
 use tonic::{transport::Server, Request, Response, Status};
 
-use autometrics::{autometrics, prometheus_exporter};
+use autometrics::{
+    autometrics, encode_global_metrics, global_metrics_exporter, prometheus_exporter,
+};
 use hello_world::greeter_server::{Greeter, GreeterServer};
 use hello_world::{HelloReply, HelloRequest};
 
@@ -26,17 +31,4 @@ impl Greeter for MyGreeter {
 
         Ok(Response::new(reply))
     }
-}
-
-#[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let addr = "[::1]:50051".parse()?;
-    let greeter = MyGreeter::default();
-
-    Server::builder()
-        .add_service(GreeterServer::new(greeter))
-        .serve(addr)
-        .await?;
-
-    Ok(())
 }
