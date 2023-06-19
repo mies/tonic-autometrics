@@ -9,11 +9,7 @@ use autometrics::{
 
 use job::job_runner_server::{JobRunner, JobRunnerServer};
 
-//use hello_world::{HelloReply, HelloRequest};
-
-//use job::greeter_server::{Greeter, GreeterServer};
-
-use job::{JobReply, JobRequest};
+use job::{Empty, Job, JobList, JobReply, JobRequest};
 
 pub mod job {
     tonic::include_proto!("job");
@@ -30,6 +26,20 @@ impl JobRunner for MyJobRunner {
 
         let reply = job::JobReply {
             message: format!("Hello {}!", request.into_inner().name).into(),
+        };
+
+        Ok(Response::new(reply))
+    }
+
+    #[autometrics]
+    async fn list_jobs(&self, request: Request<Empty>) -> Result<Response<JobList>, Status> {
+        println!("Got a request: {:?}", request);
+
+        let reply = job::JobList {
+            job: vec![job::Job {
+                id: 1,
+                name: "test".into(),
+            }],
         };
 
         Ok(Response::new(reply))
