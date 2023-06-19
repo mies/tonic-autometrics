@@ -1,0 +1,20 @@
+syntax = "proto3";
+package job;
+
+service JobRunner {
+    rpc SendJob (JobRequest) returns (JobReply);
+}
+
+message JobRequest {
+   string name = 1;
+}
+
+message JobReply {
+    string message = 1;
+
+    enum Status {
+        NOT_STARTED = 0;
+        RUNNING = 1;
+        FINISHED = 2;
+    }
+}

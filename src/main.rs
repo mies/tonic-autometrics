@@ -1,6 +1,6 @@
 use autometrics::encode_global_metrics;
 use axum::{http::StatusCode, routing::get, Router};
-use server::{hello_world, MyGreeter};
+use server::{job, MyJobRunner};
 use std::net::SocketAddr;
 use tonic::transport::Server;
 
@@ -14,7 +14,7 @@ async fn main() {
     let web_addr: SocketAddr = "127.0.0.1:8080".parse().unwrap();
 
     // gRPC server
-    let grpc_service = hello_world::greeter_server::GreeterServer::new(MyGreeter::default());
+    let grpc_service = job::job_runner_server::JobRunnerServer::new(MyJobRunner::default());
 
     tokio::spawn(async move {
         Server::builder()

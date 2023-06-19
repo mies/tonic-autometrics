@@ -6,26 +6,29 @@ use tonic::{transport::Server, Request, Response, Status};
 use autometrics::{
     autometrics, encode_global_metrics, global_metrics_exporter, prometheus_exporter,
 };
-use hello_world::greeter_server::{Greeter, GreeterServer};
-use hello_world::{HelloReply, HelloRequest};
 
-pub mod hello_world {
-    tonic::include_proto!("helloworld");
+use job::job_runner_server::{JobRunner, JobRunnerServer};
+
+//use hello_world::{HelloReply, HelloRequest};
+
+//use job::greeter_server::{Greeter, GreeterServer};
+
+use job::{JobReply, JobRequest};
+
+pub mod job {
+    tonic::include_proto!("job");
 }
 
 #[derive(Debug, Default)]
-pub struct MyGreeter {}
+pub struct MyJobRunner {}
 
 #[tonic::async_trait]
-impl Greeter for MyGreeter {
+impl JobRunner for MyJobRunner {
     #[autometrics]
-    async fn say_hello(
-        &self,
-        request: Request<HelloRequest>,
-    ) -> Result<Response<HelloReply>, Status> {
+    async fn send_job(&self, request: Request<JobRequest>) -> Result<Response<JobReply>, Status> {
         println!("Got a request: {:?}", request);
 
-        let reply = hello_world::HelloReply {
+        let reply = job::JobReply {
             message: format!("Hello {}!", request.into_inner().name).into(),
         };
 
