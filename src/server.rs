@@ -1,11 +1,4 @@
-use axum::http::StatusCode;
-use axum::routing::get;
-use axum::Router;
 use tonic::{transport::Server, Request, Response, Status};
-
-use autometrics::{
-    autometrics, encode_global_metrics, global_metrics_exporter, prometheus_exporter,
-};
 
 use job::job_runner_server::{JobRunner, JobRunnerServer};
 
