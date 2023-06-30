@@ -1,4 +1,4 @@
-use autometrics::{autometrics, prometheus_exporter};
+use autometrics::prometheus_exporter;
 use axum::{http::StatusCode, routing::get, Router};
 use server::{job, MyJobRunner};
 use std::net::SocketAddr;

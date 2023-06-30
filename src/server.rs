@@ -1,8 +1,7 @@
-use tonic::{transport::Server, Request, Response, Status};
-
-use job::job_runner_server::{JobRunner, JobRunnerServer};
-
-use job::{Empty, Job, JobList, JobReply, JobRequest};
+use autometrics::autometrics;
+use job::job_runner_server::JobRunner;
+use job::{Empty, JobList, JobReply, JobRequest};
+use tonic::{Request, Response, Status};
 
 pub mod job {
     tonic::include_proto!("job");
