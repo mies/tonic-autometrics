@@ -1,5 +1,5 @@
 use autometrics::prometheus_exporter;
-use axum::{http::StatusCode, routing::get, Router};
+use axum::{routing::get, Router};
 use server::{job, MyJobRunner};
 use std::net::SocketAddr;
 use tonic::transport::Server;
