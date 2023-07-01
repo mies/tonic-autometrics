@@ -29,6 +29,8 @@ Now you can test your endpoints and generate some traffic.
 
 ## Testing the GRPC endpoints
 
+Easiest way to test the endpoints is with `grpcurl` (`brew install grpcurl`).
+
 ```bash
 grpcurl -plaintext -import-path ./proto -proto job.proto -d '{"name": "Tonic"}' 'localhost:50051' job.JobRunner.SendJob
 ```
